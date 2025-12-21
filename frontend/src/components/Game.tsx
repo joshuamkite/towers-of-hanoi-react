@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react';
 import { useHanoiGame } from '../useHanoiGame';
 import { Tower } from './Tower';
+import { LicenseModal } from './LicenseModal';
 import '../styles/Game.css';
 
 export const Game = () => {
     const [diskCount, setDiskCount] = useState(3);
     const [draggedFrom, setDraggedFrom] = useState<number | null>(null);
+    const [showLicense, setShowLicense] = useState(false);
     const { gameState, selectTower, moveDisk, reset } = useHanoiGame(diskCount);
 
     // Detect if device supports touch
@@ -109,6 +111,35 @@ export const Game = () => {
                         Play Again
                     </button>
                 </div>
+            )}
+
+            <div className="game-footer">
+                <a
+                    href="https://www.joshuakite.co.uk/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-button"
+                >
+                    Visit My Website
+                </a>
+                <button
+                    className="footer-button"
+                    onClick={() => setShowLicense(true)}
+                >
+                    Show License
+                </button>
+                <a
+                    href="https://github.com/joshuamkite/towers-of-hanoi-react"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-button"
+                >
+                    View Source
+                </a>
+            </div>
+
+            {showLicense && (
+                <LicenseModal onClose={() => setShowLicense(false)} />
             )}
         </div>
     );
