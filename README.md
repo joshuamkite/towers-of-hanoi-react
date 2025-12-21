@@ -19,7 +19,8 @@ The Towers of Hanoi is a classic mathematical puzzle where the objective is to m
 
 - **Dual Input Methods** - Click to select/move OR drag and drop disks
 - **Drag and Drop** - Grab and drag disks between towers with visual feedback
-- **Beautiful UI** - Gradient backgrounds, colorful disks, and smooth animations
+- **Dark/Light Mode** - Automatically adapts to your system preferences
+- **Beautiful UI** - Clean design, colorful disks, and smooth animations
 - **Move Tracking** - See your current moves and compare with the optimal solution
 - **Adjustable Difficulty** - Choose from 3 to 8 disks
 - **Victory Celebration** - Special message when you complete the puzzle
@@ -113,9 +114,11 @@ Custom React hook that manages:
 ## Styling
 
 The game features:
-- Purple gradient background
+- Automatic dark/light mode based on system preferences
+- Clean, minimal background design
 - Color-coded disks (8 unique colors)
 - Smooth hover and drag animations
+- Context-aware colors that adapt to theme
 - Selected tower highlighting (blue border)
 - Drag-over tower highlighting (green dashed border)
 - Grab/grabbing cursor states for draggable disks

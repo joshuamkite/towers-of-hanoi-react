@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    background-color: var(--bg-primary);
 }
 
 .game-header {
@@ -15,13 +16,13 @@
 .game-header h1 {
     font-size: 3rem;
     margin-bottom: 10px;
-    color: #1f2937;
+    color: var(--text-primary);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .game-description {
     font-size: 1.1rem;
-    color: #6b7280;
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
@@ -41,27 +42,28 @@
 
 .control-group label {
     font-weight: 600;
-    color: #374151;
+    color: var(--text-primary);
 }
 
 .control-group select {
     padding: 8px 12px;
     font-size: 14px;
-    border: 2px solid #d1d5db;
+    border: 2px solid var(--border-color);
     border-radius: 6px;
-    background-color: white;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .control-group select:hover {
-    border-color: #3b82f6;
+    border-color: var(--tower-selected-border);
 }
 
 .control-group select:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--tower-selected-border);
+    box-shadow: 0 0 0 3px var(--tower-selected);
 }
 
 .reset-button {
@@ -74,13 +76,13 @@
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .reset-button:hover {
     background-color: #2563eb;
     transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .reset-button:active {
@@ -91,9 +93,9 @@
     display: flex;
     gap: 40px;
     padding: 20px 40px;
-    background-color: #f9fafb;
+    background-color: var(--bg-secondary);
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
 }
 
 .stat {
@@ -105,14 +107,14 @@
 
 .stat-label {
     font-size: 14px;
-    color: #6b7280;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
 .stat-value {
     font-size: 28px;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--text-primary);
 }
 
 .towers-container {
@@ -129,13 +131,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: var(--victory-bg);
     padding: 40px 60px;
     border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lg);
     text-align: center;
     z-index: 1000;
     animation: slideIn 0.3s ease-out;
+    border: 1px solid var(--border-color);
 }
 
 @keyframes slideIn {
@@ -153,18 +156,18 @@
 .victory-message h2 {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: #1f2937;
+    color: var(--text-primary);
 }
 
 .victory-message p {
     font-size: 1.2rem;
-    color: #6b7280;
+    color: var(--text-secondary);
     margin-bottom: 25px;
 }
 
 .victory-message .perfect {
     display: block;
-    color: #10b981;
+    color: var(--victory-perfect);
     font-weight: 700;
     margin-top: 10px;
 }
@@ -179,12 +182,12 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .play-again-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .play-again-button:active {
