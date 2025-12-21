@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import type { Disk as DiskType } from '../types';
 import '../styles/Disk.css';
 
@@ -10,6 +11,11 @@ interface DiskProps {
 }
 
 export const Disk = ({ disk, totalDisks, isTopDisk, towerId, onDragStart }: DiskProps) => {
+    // Detect if device supports touch - only check once
+    const isTouchDevice = useMemo(() =>
+        'ontouchstart' in window || navigator.maxTouchPoints > 0
+        , []);
+
     const widthPercent = (disk.size / totalDisks) * 80 + 20; // 20% to 100% width
     const colors = [
         '#3b82f6', // blue
@@ -25,7 +31,7 @@ export const Disk = ({ disk, totalDisks, isTopDisk, towerId, onDragStart }: Disk
     const color = colors[disk.id % colors.length];
 
     const handleDragStart = (e: React.DragEvent) => {
-        if (isTopDisk) {
+        if (isTopDisk && !isTouchDevice) {
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('text/plain', towerId.toString());
             onDragStart(towerId);
@@ -34,15 +40,18 @@ export const Disk = ({ disk, totalDisks, isTopDisk, towerId, onDragStart }: Disk
         }
     };
 
+    // Disable drag on touch devices
+    const isDraggable = isTopDisk && !isTouchDevice;
+
     return (
         <div
             className={`disk ${isTopDisk ? 'draggable' : 'not-draggable'}`}
-            draggable={isTopDisk}
+            draggable={isDraggable}
             onDragStart={handleDragStart}
             style={{
                 width: `${widthPercent}%`,
                 backgroundColor: color,
-                cursor: isTopDisk ? 'grab' : 'default',
+                cursor: isTopDisk ? 'pointer' : 'default',
             }}
         >
             {disk.size}

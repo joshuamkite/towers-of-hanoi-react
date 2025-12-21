@@ -17,9 +17,19 @@
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 10px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
-.tower:hover {
+@media (hover: hover) {
+    .tower:hover {
+        background-color: var(--tower-hover);
+    }
+}
+
+.tower:active {
     background-color: var(--tower-hover);
 }
 
@@ -68,4 +78,30 @@
     font-weight: 600;
     color: var(--text-secondary);
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .tower {
+        width: 100px;
+        height: 280px;
+        padding: 8px;
+    }
+
+    .tower-pole {
+        width: 6px;
+        height: 220px;
+        bottom: 40px;
+    }
+
+    .disk-stack {
+        min-height: 220px;
+    }
+
+    .tower-base {
+        height: 30px;
+    }
+
+    .tower-label {
+        font-size: 14px;
+    }
 }

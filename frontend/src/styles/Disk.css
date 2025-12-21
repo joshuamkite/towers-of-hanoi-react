@@ -11,14 +11,20 @@
     transition: transform 0.2s ease, opacity 0.2s ease;
     margin: 2px auto;
     cursor: pointer;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
-.disk.draggable {
-    cursor: grab;
-}
+@media (hover: hover) and (pointer: fine) {
+    .disk.draggable {
+        cursor: grab;
+    }
 
-.disk.draggable:active {
-    cursor: grabbing;
+    .disk.draggable:active {
+        cursor: grabbing;
+    }
 }
 
 .disk.not-draggable {
@@ -26,7 +32,17 @@
     opacity: 0.7;
 }
 
-.disk.draggable:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+@media (hover: hover) {
+    .disk.draggable:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@media (max-width: 768px) {
+    .disk {
+        height: 25px;
+        font-size: 12px;
+        margin: 1px auto;
+    }
 }

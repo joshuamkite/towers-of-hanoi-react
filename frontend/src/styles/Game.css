@@ -77,16 +77,23 @@
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: var(--shadow-sm);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
-.reset-button:hover {
-    background-color: #2563eb;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+@media (hover: hover) {
+    .reset-button:hover {
+        background-color: #2563eb;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
 }
 
 .reset-button:active {
     transform: translateY(0);
+    background-color: #2563eb;
 }
 
 .game-stats {
@@ -183,11 +190,17 @@
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: var(--shadow-sm);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
-.play-again-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+@media (hover: hover) {
+    .play-again-button:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
 }
 
 .play-again-button:active {
@@ -195,15 +208,50 @@
 }
 
 @media (max-width: 768px) {
+    .game {
+        padding: 15px;
+        gap: 20px;
+    }
+
     .game-header h1 {
         font-size: 2rem;
     }
 
-    .towers-container {
+    .game-description {
+        font-size: 0.95rem;
+    }
+
+    .game-stats {
         gap: 20px;
+        padding: 15px 25px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .towers-container {
+        gap: 15px;
+        padding: 10px;
     }
 
     .victory-message {
-        padding: 30px 40px;
+        padding: 25px 30px;
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .victory-message h2 {
+        font-size: 2rem;
+    }
+
+    .victory-message p {
+        font-size: 1rem;
+    }
+
+    .reset-button,
+    .play-again-button {
+        min-height: 44px;
+        min-width: 44px;
     }
 }

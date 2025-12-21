@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useHanoiGame } from '../useHanoiGame';
 import { Tower } from './Tower';
 import '../styles/Game.css';
@@ -7,6 +7,11 @@ export const Game = () => {
     const [diskCount, setDiskCount] = useState(3);
     const [draggedFrom, setDraggedFrom] = useState<number | null>(null);
     const { gameState, selectTower, moveDisk, reset } = useHanoiGame(diskCount);
+
+    // Detect if device supports touch
+    const isMobile = useMemo(() =>
+        'ontouchstart' in window || navigator.maxTouchPoints > 0
+        , []);
 
     const handleDiskCountChange = (count: number) => {
         setDiskCount(count);
@@ -37,7 +42,10 @@ export const Game = () => {
                 <p className="game-description">
                     Move all disks from the first tower to the last tower. You can only move one disk at a time, and you cannot place a larger disk on top of a smaller disk.
                     <br></br>
-                    You can click on a tower to select it and then click on another tower to move the top disk. Alternatively, you can drag and drop disks between towers.
+                    {isMobile
+                        ? 'Tap on a tower to select it, then tap on another tower to move the top disk.'
+                        : 'Click on a tower to select it and then click on another tower to move the top disk. Alternatively, you can drag and drop disks between towers.'
+                    }
                 </p>
             </header>
 
@@ -83,6 +91,7 @@ export const Game = () => {
                         onDragStart={handleDragStart}
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
+                        enableDrag={!isMobile}
                     />
                 ))}
             </div>
