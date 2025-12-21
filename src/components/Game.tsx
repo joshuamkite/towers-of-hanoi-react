@@ -5,11 +5,27 @@ import '../styles/Game.css';
 
 export const Game = () => {
     const [diskCount, setDiskCount] = useState(3);
-    const { gameState, selectTower, reset } = useHanoiGame(diskCount);
+    const [draggedFrom, setDraggedFrom] = useState<number | null>(null);
+    const { gameState, selectTower, moveDisk, reset } = useHanoiGame(diskCount);
 
     const handleDiskCountChange = (count: number) => {
         setDiskCount(count);
         // Reset will be triggered by the hook when diskCount changes
+    };
+
+    const handleDragStart = (towerId: number) => {
+        setDraggedFrom(towerId);
+    };
+
+    const handleDragOver = (e: React.DragEvent) => {
+        e.preventDefault(); // Allow drop
+    };
+
+    const handleDrop = (toTowerId: number) => {
+        if (draggedFrom !== null && draggedFrom !== toTowerId) {
+            moveDisk(draggedFrom, toTowerId);
+        }
+        setDraggedFrom(null);
     };
 
     const minMoves = Math.pow(2, diskCount) - 1;
@@ -63,6 +79,9 @@ export const Game = () => {
                         isSelected={gameState.selectedTower === tower.id}
                         onSelect={() => selectTower(tower.id)}
                         totalDisks={diskCount}
+                        onDragStart={handleDragStart}
+                        onDrop={handleDrop}
+                        onDragOver={handleDragOver}
                     />
                 ))}
             </div>

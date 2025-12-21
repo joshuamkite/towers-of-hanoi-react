@@ -80,9 +80,50 @@ export const useHanoiGame = (diskCount: number = 3) => {
         setGameState(createInitialState(diskCount));
     }, [diskCount]);
 
+    const moveDisk = useCallback((fromTowerId: number, toTowerId: number) => {
+        setGameState((prev) => {
+            const fromTower = prev.towers[fromTowerId];
+            const toTower = prev.towers[toTowerId];
+
+            if (fromTower.disks.length === 0) {
+                return prev; // No disk to move
+            }
+
+            const movingDisk = fromTower.disks[fromTower.disks.length - 1];
+            const topDiskOnTarget = toTower.disks[toTower.disks.length - 1];
+
+            // Check if move is valid
+            if (topDiskOnTarget && movingDisk.size > topDiskOnTarget.size) {
+                return prev; // Invalid move
+            }
+
+            // Perform the move
+            const newTowers = prev.towers.map((tower) => {
+                if (tower.id === fromTowerId) {
+                    return { ...tower, disks: tower.disks.slice(0, -1) };
+                }
+                if (tower.id === toTowerId) {
+                    return { ...tower, disks: [...tower.disks, movingDisk] };
+                }
+                return tower;
+            });
+
+            // Check if game is complete
+            const isComplete = newTowers[2].disks.length === diskCount;
+
+            return {
+                towers: newTowers,
+                moves: prev.moves + 1,
+                isComplete,
+                selectedTower: null,
+            };
+        });
+    }, [diskCount]);
+
     return {
         gameState,
         selectTower,
+        moveDisk,
         reset,
     };
 };

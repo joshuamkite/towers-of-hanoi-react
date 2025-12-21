@@ -4,9 +4,12 @@ import '../styles/Disk.css';
 interface DiskProps {
     disk: DiskType;
     totalDisks: number;
+    isTopDisk: boolean;
+    towerId: number;
+    onDragStart: (towerId: number) => void;
 }
 
-export const Disk = ({ disk, totalDisks }: DiskProps) => {
+export const Disk = ({ disk, totalDisks, isTopDisk, towerId, onDragStart }: DiskProps) => {
     const widthPercent = (disk.size / totalDisks) * 80 + 20; // 20% to 100% width
     const colors = [
         '#3b82f6', // blue
@@ -21,12 +24,25 @@ export const Disk = ({ disk, totalDisks }: DiskProps) => {
 
     const color = colors[disk.id % colors.length];
 
+    const handleDragStart = (e: React.DragEvent) => {
+        if (isTopDisk) {
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', towerId.toString());
+            onDragStart(towerId);
+        } else {
+            e.preventDefault();
+        }
+    };
+
     return (
         <div
-            className="disk"
+            className={`disk ${isTopDisk ? 'draggable' : 'not-draggable'}`}
+            draggable={isTopDisk}
+            onDragStart={handleDragStart}
             style={{
                 width: `${widthPercent}%`,
                 backgroundColor: color,
+                cursor: isTopDisk ? 'grab' : 'default',
             }}
         >
             {disk.size}

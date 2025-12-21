@@ -17,7 +17,8 @@ The Towers of Hanoi is a classic mathematical puzzle where the objective is to m
 
 ## Features
 
-- **Interactive Gameplay** - Click towers to select and move disks
+- **Dual Input Methods** - Click to select/move OR drag and drop disks
+- **Drag and Drop** - Grab and drag disks between towers with visual feedback
 - **Beautiful UI** - Gradient backgrounds, colorful disks, and smooth animations
 - **Move Tracking** - See your current moves and compare with the optimal solution
 - **Adjustable Difficulty** - Choose from 3 to 8 disks
@@ -55,11 +56,23 @@ towers-of-hanoi-react/
 
 ## How to Play
 
+The game supports two input methods - choose whichever you prefer:
+
+### Method 1: Click to Move
 1. **Select a tower** - Click on a tower that has disks to select it (it will highlight in blue)
 2. **Choose destination** - Click on another tower to move the top disk
-3. **Follow the rules** - You can only place a smaller disk on top of a larger one
-4. **Win the game** - Move all disks to Tower 3 to complete the puzzle
-5. **Challenge yourself** - Try to solve it in the minimum number of moves!
+3. **Deselect** - Click the same tower again to deselect
+
+### Method 2: Drag and Drop
+1. **Grab a disk** - Click and hold on the top disk of any tower (cursor shows "grab" icon)
+2. **Drag to tower** - Drag the disk over the destination tower (it will highlight in green)
+3. **Drop** - Release to place the disk on the new tower
+
+### Game Rules
+- You can only move the top disk from each tower
+- You can only place a smaller disk on top of a larger disk
+- Move all disks to Tower 3 to win
+- Try to solve it in the minimum number of moves!
 
 ### Minimum Moves Formula
 
@@ -85,24 +98,27 @@ The minimum number of moves to solve the puzzle is: **2^n - 1** (where n is the 
 
 Custom React hook that manages:
 - Game state (towers, disks, moves)
-- Move validation
+- Move validation (both click and drag-and-drop)
 - Tower selection
+- Direct disk movement between towers
 - Win condition detection
 - Game reset functionality
 
 ### Components
 
-- **Game** - Main container with controls, stats, and victory message
-- **Tower** - Individual tower with pole, base, and disk stack
-- **Disk** - Colorful disk with size-based width and hover effects
+- **Game** - Main container with controls, stats, victory message, and drag event coordination
+- **Tower** - Individual tower with pole, base, disk stack, and drop zone functionality
+- **Disk** - Draggable disk component with size-based width, visual feedback, and HTML5 drag API
 
 ## Styling
 
 The game features:
 - Purple gradient background
 - Color-coded disks (8 unique colors)
-- Smooth hover animations
-- Selected tower highlighting
+- Smooth hover and drag animations
+- Selected tower highlighting (blue border)
+- Drag-over tower highlighting (green dashed border)
+- Grab/grabbing cursor states for draggable disks
 - Responsive design
 - Victory modal overlay
 
@@ -111,5 +127,5 @@ The game features:
 - **React 19.2.3** - UI framework
 - **TypeScript 5.9.3** - Type safety
 - **Bun** - Fast JavaScript runtime and package manager
-- **Vite 7.3.0** - Lightning-fast build tool
+- **Vite 7.3.0** - build tool
 - **CSS3** - Styling and animations
