@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { GameState, Disk } from './types';
 
 const createInitialState = (diskCount: number): GameState => {
@@ -21,6 +21,11 @@ const createInitialState = (diskCount: number): GameState => {
 
 export const useHanoiGame = (diskCount: number = 3) => {
     const [gameState, setGameState] = useState<GameState>(() => createInitialState(diskCount));
+
+    // Reset game when disk count changes
+    useEffect(() => {
+        setGameState(createInitialState(diskCount));
+    }, [diskCount]);
 
     const selectTower = useCallback((towerId: number) => {
         setGameState((prev) => {
