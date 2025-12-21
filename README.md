@@ -128,6 +128,7 @@ Custom React hook that manages:
 - Direct disk movement between towers
 - Win condition detection
 - Game reset functionality
+- **Conditionally** Disable drag and drop and instruction references to it on mobile only
 
 ### Components
 
