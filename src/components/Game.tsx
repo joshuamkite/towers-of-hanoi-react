@@ -33,10 +33,11 @@ export const Game = () => {
     return (
         <div className="game">
             <header className="game-header">
-                <h1>🗼 Towers of Hanoi</h1>
+                <h1>🗼 Towers of Hanoi 🗼</h1>
                 <p className="game-description">
-                    Move all disks from the first tower to the last tower. You can only move one disk at a time,
-                    and you cannot place a larger disk on top of a smaller disk.
+                    Move all disks from the first tower to the last tower. You can only move one disk at a time, and you cannot place a larger disk on top of a smaller disk.
+                    <br></br>
+                    You can click on a tower to select it and then click on another tower to move the top disk. Alternatively, you can drag and drop disks between towers.
                 </p>
             </header>
 
