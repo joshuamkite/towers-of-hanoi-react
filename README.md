@@ -8,6 +8,30 @@ Implementation of the classic Towers of Hanoi puzzle game built with React, Type
 ![Vite](https://img.shields.io/badge/Vite-7.3.0-646CFF?style=flat&logo=vite)
 ![OpenTofu](https://img.shields.io/badge/OpenTofu-1.10+-FFDA18?style=flat&logo=opentofu&logoColor=000000)
 
+- [Towers of Hanoi - React + TypeScript + Bun](#towers-of-hanoi---react--typescript--bun)
+  - [About the Game](#about-the-game)
+  - [Features](#features)
+  - [Project Structure](#project-structure)
+    - [Minimum Moves Formula](#minimum-moves-formula)
+  - [Local Development](#local-development)
+    - [Prerequisites](#prerequisites)
+    - [Available Scripts](#available-scripts)
+  - [Key Components](#key-components)
+    - [Game Logic (`useHanoiGame.ts`)](#game-logic-usehanoigamets)
+    - [Components](#components)
+  - [Styling](#styling)
+  - [Technologies Used](#technologies-used)
+  - [AWS Deployment](#aws-deployment)
+    - [Updating the Website](#updating-the-website)
+    - [Manual Cache Invalidation](#manual-cache-invalidation)
+  - [Requirements](#requirements)
+  - [Providers](#providers)
+  - [Modules](#modules)
+  - [Resources](#resources)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+
+
 ## About the Game
 
 The Towers of Hanoi is a classic mathematical puzzle where the objective is to move all disks from the first tower to the last tower, following these rules:
@@ -63,26 +87,6 @@ towers-of-hanoi-react/
     ├── versions.tf            # Provider versions
     └── backend.tf             # S3 backend configuration
 ```
-
-## How to Play
-
-The game supports two input methods - choose whichever you prefer:
-
-### Method 1: Click to Move
-1. **Select a tower** - Click on a tower that has disks to select it (it will highlight in blue)
-2. **Choose destination** - Click on another tower to move the top disk
-3. **Deselect** - Click the same tower again to deselect
-
-### Method 2: Drag and Drop
-1. **Grab a disk** - Click and hold on the top disk of any tower (cursor shows "grab" icon)
-2. **Drag to tower** - Drag the disk over the destination tower (it will highlight in green)
-3. **Drop** - Release to place the disk on the new tower
-
-### Game Rules
-- You can only move the top disk from each tower
-- You can only place a smaller disk on top of a larger disk
-- Move all disks to Tower 3 to win
-- Try to solve it in the minimum number of moves!
 
 ### Minimum Moves Formula
 
