@@ -1,0 +1,66 @@
+.tower-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.tower {
+    position: relative;
+    width: 250px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tower:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.tower.selected {
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 2px solid #3b82f6;
+}
+
+.tower-pole {
+    position: absolute;
+    width: 8px;
+    height: 280px;
+    background: linear-gradient(to bottom, #8b4513, #654321);
+    border-radius: 4px;
+    bottom: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.disk-stack {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 280px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 10px;
+}
+
+.tower-base {
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to bottom, #654321, #4a3219);
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.tower-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4b5563;
+    text-align: center;
+}
