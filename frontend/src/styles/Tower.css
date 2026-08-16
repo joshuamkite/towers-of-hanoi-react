@@ -72,11 +72,28 @@
     height: calc(var(--pole-empty-offset) +
             min(var(--disc-count), 1) * var(--pole-first-disc-extra) +
             max(var(--disc-count) - 1, 0) * var(--pole-step));
-    background: var(--tower-pole);
+    /* The "edge" - same darkened treatment as the base's slab. */
+    background: color-mix(in srgb, var(--tower-pole) 100%, black 15%);
     border-radius: 4px;
     bottom: 0;
     transform: translateX(-50%);
-    box-shadow: var(--shadow-sm), inset -2px 0 3px rgba(0, 0, 0, 0.35), inset 2px 0 2px rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-sm);
+}
+
+/* The "top" - same construction and lightened treatment as the base's own cap,
+   scaled down to the pole's width. */
+.tower-pole-cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    aspect-ratio: 5 / 1;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: linear-gradient(180deg,
+            color-mix(in srgb, var(--tower-pole) 100%, white 25%) 0%,
+            var(--tower-pole) 70%);
+    pointer-events: none;
 }
 
 .disk-stack {
