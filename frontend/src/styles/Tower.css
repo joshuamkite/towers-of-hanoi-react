@@ -18,33 +18,53 @@
     justify-content: flex-end;
     align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
     padding: 10px;
-    border-radius: 10px;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
 }
 
+/* The hover/selected/drag-over highlight, as a separate element rather than
+   .tower's own background - .tower's own box is only as wide as the discs/pole
+   size themselves against, but the base is deliberately wider (122%, see below) so
+   it visibly extends past the bottom disc. A highlight sized to .tower alone would
+   look too narrow for the tower it's supposedly highlighting, so this matches the
+   base's width instead. Painted first (no z-index of its own), so it sits behind
+   the pole/discs/base like a backdrop rather than covering them. */
+.tower::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 122%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    pointer-events: none;
+}
+
 @media (hover: hover) {
-    .tower:hover {
+    .tower:hover::before {
         background-color: var(--tower-hover);
     }
 }
 
-.tower:active {
+.tower:active::before {
     background-color: var(--tower-hover);
 }
 
-.tower.selected {
+.tower.selected::before {
     background-color: var(--tower-selected);
-    border: 2px solid var(--tower-selected-border);
+    border-color: var(--tower-selected-border);
 }
 
-.tower.drag-over {
+.tower.drag-over::before {
     background-color: var(--tower-drag-over);
-    border: 2px dashed var(--tower-drag-over-border);
+    border-color: var(--tower-drag-over-border);
+    border-style: dashed;
 }
 
 /* The pole is rendered as an extra .disk (see Tower.tsx: className="disk pole-ring",
