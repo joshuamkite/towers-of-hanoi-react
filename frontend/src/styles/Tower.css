@@ -88,7 +88,7 @@
    cut instead of a curve. A shallower ratio number (taller relative to width)
    makes it an actual visible curve. */
 .pole-ring .disk-bottom {
-    aspect-ratio: 3 / 1;
+    aspect-ratio: 6 / 1;
 }
 
 @media (max-width: 768px) {
