@@ -7,7 +7,11 @@
 
 .tower {
     position: relative;
-    width: 250px;
+    /* Fluid rather than a hard 250px/100px switch at the 768px breakpoint: 3 towers
+       at the full 250px width plus their gaps don't actually fit again until the
+       viewport is quite a bit wider than 768px, so there was a dead zone just above
+       that breakpoint where they wrapped to two rows despite not being "mobile". */
+    width: clamp(85px, 24vw, 250px);
     height: 350px;
     display: flex;
     flex-direction: column;
@@ -159,7 +163,6 @@
 
 @media (max-width: 768px) {
     .tower {
-        width: 100px;
         height: 280px;
         padding: 8px;
     }
