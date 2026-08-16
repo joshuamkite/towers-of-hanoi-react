@@ -43,7 +43,7 @@
        clear the curve, so the highlight reads as evenly padded around the tower
        instead of tight against the top and loose at the bottom. */
     top: -24px;
-    bottom: -24px;
+    bottom: -34px;
     width: 122%;
     transform: translateX(-50%);
     border-radius: 10px;
@@ -195,7 +195,7 @@
 
     .tower::before {
         top: -6px;
-        bottom: -6px;
+        bottom: -9px;
     }
 
     .disk-stack {
