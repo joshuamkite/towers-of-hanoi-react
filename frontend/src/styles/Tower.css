@@ -58,12 +58,20 @@
    step (wall-height + disk-margin) to the stack's total height regardless of its
    width - so (total-disks + 2 - real-disc-count) is how many of those steps the
    pole-ring needs to cover. But that count includes the pole-ring's own step, and
-   its own disk-margin (the gap before it, same rule real discs use) is a separate
-   CSS property, not part of its height - so one disk-margin has to come back out of
-   the height itself, or the pole would run one whole margin too tall. */
+   its own margin (the gap before it) is a separate CSS property, not part of its
+   height - so that margin has to come back out of the height itself, or the pole
+   would run that much too tall.
+
+   Its own margin-top is smaller than a real disc's (--pole-margin, not
+   --disk-margin) - the pole is far narrower than the disc/base it sits on, so it
+   needs to sink further down into it for the overlap to read clearly, rather than
+   perching on the smaller amount of overlap that's enough for two similarly-wide
+   rings. */
 .pole-ring {
+    --pole-margin: 2px;
     width: 20px;
-    height: calc((var(--total-disks) + 2 - var(--real-disc-count)) * (var(--wall-height) + var(--disk-margin)) - var(--disk-margin));
+    height: calc((var(--total-disks) + 2 - var(--real-disc-count)) * (var(--wall-height) + var(--disk-margin)) - var(--pole-margin));
+    margin-top: var(--pole-margin);
 }
 
 /* disk-wall's height is normally var(--wall-height), matching a real disc's own
@@ -74,8 +82,18 @@
     height: 100%;
 }
 
+/* disk-bottom's aspect-ratio (9/1) is tuned for a disc's own width, where even a
+   shallow curve is still several pixels tall. The pole is much narrower, so that
+   same ratio comes out well under a pixel tall - imperceptible, reads as a flat
+   cut instead of a curve. A shallower ratio number (taller relative to width)
+   makes it an actual visible curve. */
+.pole-ring .disk-bottom {
+    aspect-ratio: 3 / 1;
+}
+
 @media (max-width: 768px) {
     .pole-ring {
+        --pole-margin: 1px;
         width: 14px;
     }
 }
