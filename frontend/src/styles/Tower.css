@@ -36,8 +36,14 @@
     content: '';
     position: absolute;
     left: 50%;
-    top: 0;
-    bottom: 0;
+    /* .tower's own top/bottom edges aren't actually where the tower's visible
+       content ends - the base's curved underside (tower-base::after) extends
+       further down again below .tower's own bottom edge. Extended equally past
+       .tower's own box on both sides, rather than only pushing the bottom out to
+       clear the curve, so the highlight reads as evenly padded around the tower
+       instead of tight against the top and loose at the bottom. */
+    top: -24px;
+    bottom: -24px;
     width: 122%;
     transform: translateX(-50%);
     border-radius: 10px;
@@ -185,6 +191,11 @@
     .tower {
         height: 280px;
         padding: 8px;
+    }
+
+    .tower::before {
+        top: -6px;
+        bottom: -6px;
     }
 
     .disk-stack {
