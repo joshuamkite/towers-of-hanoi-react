@@ -59,7 +59,7 @@ export const Tower = ({
             >
                 <div
                     className="tower-pole"
-                    style={{ '--disc-count': tower.disks.length } as React.CSSProperties}
+                    style={{ '--disc-count': totalDisks } as React.CSSProperties}
                 ></div>
                 <div className="disk-stack">
                     {tower.disks.map((disk, index) => (
