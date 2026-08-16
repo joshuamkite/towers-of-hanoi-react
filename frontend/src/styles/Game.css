@@ -126,7 +126,7 @@
 
 .towers-container {
     display: flex;
-    gap: 40px;
+    gap: clamp(15px, 5vw, 40px);
     justify-content: center;
     align-items: flex-end;
     padding: 20px;
@@ -233,7 +233,6 @@
     }
 
     .towers-container {
-        gap: 15px;
         padding: 10px;
     }
 
