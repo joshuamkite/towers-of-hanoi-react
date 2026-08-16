@@ -66,7 +66,10 @@
 
 .tower-base {
     position: relative;
-    width: 100%;
+    /* Wider than the tower's own content box (and than the biggest disc, which
+       tops out at 100%) so the plinth visibly extends past the bottom disc's edges
+       on every side, rather than matching it exactly. */
+    width: 118%;
     height: 34px;
     background: var(--tower-base);
     box-shadow: var(--shadow-sm);
@@ -89,8 +92,6 @@
     transform: translateY(-50%);
     border-radius: 50%;
     background: var(--tower-base);
-    filter: brightness(1.08);
-    box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.12);
     pointer-events: none;
 }
 
@@ -107,13 +108,6 @@
     aspect-ratio: 9 / 1;
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
     background: var(--tower-base);
-}
-
-.tower-label {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -136,9 +130,5 @@
     .tower-base {
         height: 22px;
         margin-top: 5px;
-    }
-
-    .tower-label {
-        font-size: 14px;
     }
 }

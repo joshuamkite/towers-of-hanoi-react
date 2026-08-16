@@ -74,7 +74,6 @@ export const Tower = ({
                     <span className="tower-base-face" />
                 </div>
             </div>
-            <div className="tower-label">Tower {tower.id + 1}</div>
         </div>
     );
 };
