@@ -47,13 +47,6 @@ export const Tower = ({
         setIsDragOver(false);
     };
 
-    // Same width formula as Disk's widthPercent (size/totalDisks * 80 + 20), so
-    // "2 rings worth bigger than the bottom disc" scales with however big a size
-    // step currently is, instead of a fixed percentage that would look right only
-    // at one disc count. Capped, since at low disc counts (e.g. 3) a size step is
-    // huge and this would otherwise make adjacent towers' bases overlap.
-    const baseWidthPercent = 100 + Math.min(2 * (80 / totalDisks), 24);
-
     return (
         <div className="tower-container">
             <div
@@ -77,7 +70,7 @@ export const Tower = ({
                         />
                     ))}
                 </div>
-                <div className="tower-base" style={{ width: `${baseWidthPercent}%` }}>
+                <div className="tower-base">
                     <span className="tower-base-face" />
                 </div>
             </div>

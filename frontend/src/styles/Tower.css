@@ -65,9 +65,11 @@
 }
 
 .tower-base {
-    /* width set inline (Tower.tsx) - 2 disc-size-steps wider than the biggest disc,
-       so it scales with however big a step currently is at the active disc count. */
+    /* Fixed regardless of disc count - scaling this with the current disc-size step
+       made the base narrower at higher disc counts (each step shrinks as more discs
+       are added), which read as backwards: a bigger stack getting a smaller base. */
     position: relative;
+    width: 122%;
     height: 34px;
     background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
     box-shadow: var(--shadow-sm);
