@@ -47,13 +47,18 @@
     pointer-events: none;
 }
 
+/* Half-dome (not a full ellipse): only the downward-curving half is drawn. A full
+   ellipse here would also paint its upper half - rising into the wall as an
+   unwanted dark arch, since it's the darkest layer and painted last. Its flat top
+   edge sits exactly at the wall's bottom (already full-width there), so it joins
+   the wall with no seam. */
 .disk-bottom {
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(var(--wall-height) - var(--bottom-height) / 2);
+    top: var(--wall-height);
     height: var(--bottom-height);
-    border-radius: 50%;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
     background: color-mix(in srgb, var(--disk-color) 100%, black 30%);
     pointer-events: none;
 }

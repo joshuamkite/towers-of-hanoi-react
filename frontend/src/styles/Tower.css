@@ -75,15 +75,14 @@
     margin-top: calc(var(--cap-height) * -0.5);
 }
 
-/* Top face of the plinth: a full ellipse (no seam to align) that overlaps generously
-   down into the slab. The slab is the same material underneath, so wherever the
-   ellipse's curve doesn't reach, the slab's own background already fills it in -
-   there is no bounding-box corner left uncovered, hence no gap. */
+/* Top face of the plinth: a full ellipse whose vertical center sits exactly at the
+   slab's top edge (y=0) - that's the one point where it's already full-width, so
+   the slab's sharp top corners are never left poking out past the curve. */
 .tower-base-face {
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(var(--cap-height) * -0.65);
+    top: calc(var(--cap-height) / -2);
     height: var(--cap-height);
     border-radius: 50%;
     background: var(--tower-base);
@@ -92,15 +91,18 @@
     pointer-events: none;
 }
 
-/* Bottom face - closes off the plinth so it reads as a solid drum, not a slab cut off flat */
+/* Bottom face - closes off the plinth so it reads as a solid drum, not a slab cut off
+   flat. Half-dome (flat top, matching the slab's bottom edge exactly; curved only
+   downward) rather than a full ellipse, so its darker shade doesn't also paint an
+   unwanted arch rising up into the slab. */
 .tower-base::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    bottom: calc(var(--bottom-height) * -0.65);
+    top: 100%;
     height: var(--bottom-height);
-    border-radius: 50%;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
     background: var(--tower-base);
     filter: brightness(0.85);
 }
