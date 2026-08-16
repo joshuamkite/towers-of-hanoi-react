@@ -43,76 +43,41 @@
     border: 2px dashed var(--tower-drag-over-border);
 }
 
-.tower-pole {
-    /* Height is driven by totalDisks (via --disc-count, set from Tower.tsx), NOT
-       this tower's own current disc count - the pole is a fixed peg, the same
-       height on all 3 towers regardless of how loaded each one currently is, sized
-       for a full stack. It reaches the vertical center of the topmost disc's cap
-       when a tower is fully loaded (or the base's cap for an empty formula - not
-       hit in practice, since totalDisks is always >=1, but kept for correctness).
-       Each disc's own flow height is a fixed value regardless of its width (only
-       the cap/bottom curve shapes scale with width via aspect-ratio), so this is
-       plain arithmetic rather than anything measured.
+/* The pole is rendered as an extra .disk (see Tower.tsx: className="disk pole-ring",
+   last child of .disk-stack) - a very tall, very narrow ring stacked above the real
+   discs, reusing disk-wall/disk-cap/disk-bottom as-is (colored via the inherited
+   --disk-color: var(--tower-pole) override) and the same margin-top the real discs
+   use. That's what makes it "meet" the top disc, or the base if the tower is empty,
+   exactly the way one ring meets another - the same overlap, not a separate rod
+   that just vanishes into whatever it touches.
 
-       That target point is where the topmost disc's cap reaches full width, though
-       - and directly above the pole's own centered position, an ellipse's bounding
-       box spans its full height (a vertical line through the center of an ellipse
-       hits its topmost and bottommost points) - so the cap's opaque paint, drawn
-       after the pole, covers the pole all the way up to the top of the cap's own
-       bounding box, not just up to its center. --pole-clearance clears that, with
-       enough extra on top to visibly overlap into the disc - the same idea as the
-       margin that lets each disc's own cap show as a rim under the one above it. */
-    --pole-clearance: 60px;
-    --pole-empty-offset: calc(44px + var(--pole-clearance));
-    --pole-first-disc-extra: 30px;
-    --pole-step: 28px;
-    position: absolute;
-    left: 50%;
+   Its height is whatever's left of a fixed "totalDisks + 2 rings tall" budget after
+   the real discs already on this tower - so it's the same total height above the
+   base on all 3 towers regardless of how loaded each currently is, while resting on
+   top of however many real discs are actually here. Each disc contributes a fixed
+   step (wall-height + disk-margin) to the stack's total height regardless of its
+   width - so (total-disks + 2 - real-disc-count) is how many of those steps the
+   pole-ring needs to cover. But that count includes the pole-ring's own step, and
+   its own disk-margin (the gap before it, same rule real discs use) is a separate
+   CSS property, not part of its height - so one disk-margin has to come back out of
+   the height itself, or the pole would run one whole margin too tall. */
+.pole-ring {
     width: 20px;
-    height: calc(var(--pole-empty-offset) +
-            min(var(--disc-count), 1) * var(--pole-first-disc-extra) +
-            max(var(--disc-count) - 1, 0) * var(--pole-step));
-    /* The "edge" - same darkened treatment as the base's slab. No border-radius:
-       the cap ellipse handles all the rounding at the top, same as disk-wall/
-       tower-base - rounding this rectangle too would carve its own top corners
-       away independently of the cap, leaving a seam that doesn't line up with the
-       ellipse's curve and reads as a gap between the two. */
-    background: color-mix(in srgb, var(--tower-pole) 100%, black 15%);
-    bottom: 0;
-    transform: translateX(-50%);
-    box-shadow: var(--shadow-sm);
+    height: calc((var(--total-disks) + 2 - var(--real-disc-count)) * (var(--wall-height) + var(--disk-margin)) - var(--disk-margin));
 }
 
-/* The "top" - same construction and lightened treatment as the base's own cap,
-   scaled down to the pole's width. */
-.tower-pole-cap {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    aspect-ratio: 5 / 1;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    background: linear-gradient(180deg,
-            color-mix(in srgb, var(--tower-pole) 100%, white 25%) 0%,
-            var(--tower-pole) 70%);
-    pointer-events: none;
+/* disk-wall's height is normally var(--wall-height), matching a real disc's own
+   fixed-height container exactly. The pole-ring's container is much taller than
+   that (above), so its wall needs to fill the whole thing instead, or most of the
+   pole-ring's box is left transparent below the wall's normal 22px/16px. */
+.pole-ring .disk-wall {
+    height: 100%;
 }
 
-/* The "bottom" - same half-dome construction as disk-bottom/tower-base's underside:
-   flat top edge flush with the pole's own bottom, curving only downward. Without
-   this the pole was just a flat-ended rectangle wherever it met a surface, instead
-   of blending into it the way one ring's bottom curve blends into the ring below -
-   same color as the pole's own edge, same as disk-bottom matching disk-wall. */
-.tower-pole-bottom {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    aspect-ratio: 9 / 1;
-    border-radius: 0 0 50% 50% / 0 0 100% 100%;
-    background: color-mix(in srgb, var(--tower-pole) 100%, black 15%);
-    pointer-events: none;
+@media (max-width: 768px) {
+    .pole-ring {
+        width: 14px;
+    }
 }
 
 .disk-stack {
@@ -179,14 +144,6 @@
         width: 100px;
         height: 280px;
         padding: 8px;
-    }
-
-    .tower-pole {
-        --pole-clearance: 24px;
-        --pole-empty-offset: calc(30px + var(--pole-clearance));
-        --pole-first-disc-extra: 21px;
-        --pole-step: 18px;
-        width: 14px;
     }
 
     .disk-stack {

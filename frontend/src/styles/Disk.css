@@ -13,6 +13,11 @@
    relative to their width that it reads as flat across the middle. */
 .disk {
     --wall-height: 22px;
+    /* Exposed as a custom property (rather than a bare margin-top value) so the
+       tower-pole's own height formula - which treats it as one more, very tall and
+       narrow "ring" stacked above the real discs - can reference the exact same
+       per-disc step size (wall-height + disk-margin) instead of a hardcoded copy. */
+    --disk-margin: 6px;
     position: relative;
     height: var(--wall-height);
     /* This must stay smaller than half the cap-height of the narrowest disc that can
@@ -21,7 +26,7 @@
        tied to --cap-height broke this for narrow discs, since cap-height is now
        aspect-ratio-driven (scales with each disc's own width) and no longer matches
        a shared reference value. */
-    margin-top: 6px;
+    margin-top: var(--disk-margin);
     cursor: pointer;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
@@ -96,6 +101,6 @@
 @media (max-width: 768px) {
     .disk {
         --wall-height: 16px;
-        margin-top: 2px;
+        --disk-margin: 2px;
     }
 }
