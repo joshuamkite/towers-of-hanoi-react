@@ -137,7 +137,7 @@
     position: fixed;
     /* Higher up than dead-center - so it covers the instructions text near the top
        of the page rather than the towers themselves, which stay visible underneath. */
-    top: 20%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--victory-bg);
