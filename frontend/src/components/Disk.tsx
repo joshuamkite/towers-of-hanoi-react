@@ -50,11 +50,13 @@ export const Disk = ({ disk, totalDisks, isTopDisk, towerId, onDragStart }: Disk
             onDragStart={handleDragStart}
             style={{
                 width: `${widthPercent}%`,
-                backgroundColor: color,
                 cursor: isTopDisk ? 'pointer' : 'default',
-            }}
+                '--disk-color': color,
+            } as React.CSSProperties}
         >
-            {disk.size}
+            <span className="disk-wall" />
+            <span className="disk-cap" />
+            <span className="disk-bottom" />
         </div>
     );
 };

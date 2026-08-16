@@ -1,20 +1,81 @@
+/* Each disc has three layers, painted in this order:
+   1. disk-wall - a plain straight-sided rectangle, tall enough to span from above the
+      cap ellipse's top to below the bottom ellipse's bottom. It's mostly hidden behind
+      the two ellipses painted over it, but backs their curved corners (so there's never
+      a transparent gap) and shows through as the visible straight vertical sides in the
+      middle section between them.
+   2. disk-cap - a full ellipse for the top surface, overlapping down into the wall.
+   3. disk-bottom - a full ellipse for the underside, overlapping up into the wall.
+
+   The cap and bottom curves use aspect-ratio (not a fixed px height) so a disc's
+   curviness scales with its own width - otherwise the widest discs (which stay
+   ~100% width no matter how many discs are in play) end up with a curve so short
+   relative to their width that it reads as flat across the middle. */
 .disk {
-    height: 30px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    margin: 2px auto;
+    --wall-height: 22px;
+    /* Exposed as a custom property (rather than a bare margin-top value) so the
+       tower-pole's own height formula - which treats it as one more, very tall and
+       narrow "ring" stacked above the real discs - can reference the exact same
+       per-disc step size (wall-height + disk-margin) instead of a hardcoded copy. */
+    --disk-margin: 6px;
+    position: relative;
+    height: var(--wall-height);
+    /* This must stay smaller than half the cap-height of the narrowest disc that can
+       appear (30% width at the max disc count), or the gap opens wider than that
+       disc's own cap and shows through to whatever is behind it - a fixed value
+       tied to --cap-height broke this for narrow discs, since cap-height is now
+       aspect-ratio-driven (scales with each disc's own width) and no longer matches
+       a shared reference value. */
+    margin-top: var(--disk-margin);
     cursor: pointer;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
+}
+
+.disk-wall {
+    /* Starts exactly at the cap ellipse's vertical center (where it's already
+       full-width) and ends at the bottom ellipse's vertical center, so the wall's
+       sharp rectangular corners are never visible past either ellipse's curve. */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: var(--wall-height);
+    background: color-mix(in srgb, var(--disk-color) 100%, black 15%);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.disk-cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    aspect-ratio: 5 / 1;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: linear-gradient(180deg,
+            color-mix(in srgb, var(--disk-color) 100%, white 25%) 0%,
+            var(--disk-color) 70%);
+    pointer-events: none;
+}
+
+/* Half-dome (not a full ellipse): only the downward-curving half is drawn. A full
+   ellipse here would also paint its upper half - rising into the wall as an
+   unwanted dark arch, since it's the darkest layer and painted last. Its flat top
+   edge sits exactly at the wall's bottom (already full-width there), so it joins
+   the wall with no seam. */
+.disk-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    aspect-ratio: 9 / 1;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    background: color-mix(in srgb, var(--disk-color) 100%, black 15%);
+    pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -29,20 +90,17 @@
 
 .disk.not-draggable {
     cursor: default;
-    opacity: 0.7;
 }
 
 @media (hover: hover) {
     .disk.draggable:hover {
         transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 }
 
 @media (max-width: 768px) {
     .disk {
-        height: 25px;
-        font-size: 12px;
-        margin: 1px auto;
+        --wall-height: 16px;
+        --disk-margin: 2px;
     }
 }
