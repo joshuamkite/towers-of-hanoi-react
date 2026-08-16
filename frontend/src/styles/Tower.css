@@ -65,11 +65,9 @@
 }
 
 .tower-base {
+    /* width set inline (Tower.tsx) - 2 disc-size-steps wider than the biggest disc,
+       so it scales with however big a step currently is at the active disc count. */
     position: relative;
-    /* Wider than the tower's own content box (and than the biggest disc, which
-       tops out at 100%) so the plinth visibly extends past the bottom disc's edges
-       on every side, rather than matching it exactly. */
-    width: 118%;
     height: 34px;
     background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
     box-shadow: var(--shadow-sm);
