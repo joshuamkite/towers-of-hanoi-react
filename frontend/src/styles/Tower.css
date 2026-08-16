@@ -104,7 +104,6 @@
     height: var(--bottom-height);
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
     background: var(--tower-base);
-    filter: brightness(0.85);
 }
 
 .tower-label {

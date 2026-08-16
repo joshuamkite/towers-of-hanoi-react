@@ -5,14 +5,18 @@
       a transparent gap) and shows through as the visible straight vertical sides in the
       middle section between them.
    2. disk-cap - a full ellipse for the top surface, overlapping down into the wall.
-   3. disk-bottom - a full ellipse for the underside, overlapping up into the wall. */
+   3. disk-bottom - a full ellipse for the underside, overlapping up into the wall.
+
+   The cap and bottom curves use aspect-ratio (not a fixed px height) so a disc's
+   curviness scales with its own width - otherwise the widest discs (which stay
+   ~100% width no matter how many discs are in play) end up with a curve so short
+   relative to their width that it reads as flat across the middle. */
 .disk {
     --cap-height: 14px;
     --wall-height: 22px;
-    --bottom-height: 10px;
     position: relative;
     height: var(--wall-height);
-    margin-top: 0;
+    margin-top: var(--cap-height);
     cursor: pointer;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
@@ -38,8 +42,9 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(var(--cap-height) / -2);
-    height: var(--cap-height);
+    top: 0;
+    aspect-ratio: 5 / 1;
+    transform: translateY(-50%);
     border-radius: 50%;
     background: linear-gradient(180deg,
             color-mix(in srgb, var(--disk-color) 100%, white 25%) 0%,
@@ -56,8 +61,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: var(--wall-height);
-    height: var(--bottom-height);
+    top: 100%;
+    aspect-ratio: 9 / 1;
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
     background: color-mix(in srgb, var(--disk-color) 100%, black 15%);
     pointer-events: none;
@@ -87,6 +92,5 @@
     .disk {
         --cap-height: 10px;
         --wall-height: 16px;
-        --bottom-height: 7px;
     }
 }
