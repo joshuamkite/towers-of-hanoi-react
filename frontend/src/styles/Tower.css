@@ -72,9 +72,12 @@
     height: calc(var(--pole-empty-offset) +
             min(var(--disc-count), 1) * var(--pole-first-disc-extra) +
             max(var(--disc-count) - 1, 0) * var(--pole-step));
-    /* The "edge" - same darkened treatment as the base's slab. */
+    /* The "edge" - same darkened treatment as the base's slab. No border-radius:
+       the cap ellipse handles all the rounding at the top, same as disk-wall/
+       tower-base - rounding this rectangle too would carve its own top corners
+       away independently of the cap, leaving a seam that doesn't line up with the
+       ellipse's curve and reads as a gap between the two. */
     background: color-mix(in srgb, var(--tower-pole) 100%, black 15%);
-    border-radius: 4px;
     bottom: 0;
     transform: translateX(-50%);
     box-shadow: var(--shadow-sm);
