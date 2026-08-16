@@ -44,12 +44,37 @@
 }
 
 .tower-pole {
+    /* Stops at the vertical center of the topmost disc's cap (or the base's cap, if
+       the tower is empty) - not sticking up past it, not stopping short at its near
+       edge. Each disc's own flow height is a fixed value regardless of its width
+       (only the cap/bottom curve shapes scale with width via aspect-ratio), so this
+       is plain arithmetic on --disc-count rather than anything measured: one
+       reference offset for an empty tower, a bit more once the first disc is on the
+       pole, then a fixed increment per additional disc stacked above that.
+
+       That target point is exactly where the topmost disc's cap (or the base's cap)
+       reaches full width, though - and directly above the pole's own centered
+       position, an ellipse's bounding box spans its full height (a vertical line
+       through the center of an ellipse hits its topmost and bottommost points) - so
+       the cap's opaque paint, which is drawn after the pole, actually covers the
+       pole all the way up to the top of the cap's own bounding box, not just up to
+       its center. --pole-clearance accounts for that: it's sized to clear the
+       base's cap (the widest one in play, since the base is wider than any disc,
+       so its aspect-ratio-driven cap is the tallest) with a small margin to spare. */
+    --pole-clearance: 30px;
+    --pole-empty-offset: calc(44px + var(--pole-clearance));
+    --pole-first-disc-extra: 30px;
+    --pole-step: 28px;
     position: absolute;
-    width: 8px;
-    height: 280px;
+    left: 50%;
+    width: 10px;
+    height: calc(var(--pole-empty-offset) +
+            min(var(--disc-count), 1) * var(--pole-first-disc-extra) +
+            max(var(--disc-count) - 1, 0) * var(--pole-step));
     background: var(--tower-pole);
     border-radius: 4px;
-    bottom: 50px;
+    bottom: 0;
+    transform: translateX(-50%);
     box-shadow: var(--shadow-sm), inset -2px 0 3px rgba(0, 0, 0, 0.35), inset 2px 0 2px rgba(255, 255, 255, 0.15);
 }
 
@@ -120,9 +145,11 @@
     }
 
     .tower-pole {
-        width: 6px;
-        height: 220px;
-        bottom: 40px;
+        --pole-clearance: 12px;
+        --pole-empty-offset: calc(30px + var(--pole-clearance));
+        --pole-first-disc-extra: 21px;
+        --pole-step: 18px;
+        width: 7px;
     }
 
     .disk-stack {
