@@ -1,20 +1,61 @@
+/* Each disc has three layers, painted in this order:
+   1. disk-wall - a plain straight-sided rectangle, tall enough to span from above the
+      cap ellipse's top to below the bottom ellipse's bottom. It's mostly hidden behind
+      the two ellipses painted over it, but backs their curved corners (so there's never
+      a transparent gap) and shows through as the visible straight vertical sides in the
+      middle section between them.
+   2. disk-cap - a full ellipse for the top surface, overlapping down into the wall.
+   3. disk-bottom - a full ellipse for the underside, overlapping up into the wall. */
 .disk {
-    height: 30px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    margin: 2px auto;
+    --cap-height: 14px;
+    --wall-height: 22px;
+    --bottom-height: 10px;
+    position: relative;
+    height: var(--wall-height);
+    margin-top: 0;
     cursor: pointer;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
+}
+
+.disk-wall {
+    /* Starts exactly at the cap ellipse's vertical center (where it's already
+       full-width) and ends at the bottom ellipse's vertical center, so the wall's
+       sharp rectangular corners are never visible past either ellipse's curve. */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: var(--wall-height);
+    background: color-mix(in srgb, var(--disk-color) 100%, black 15%);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.disk-cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--cap-height) / -2);
+    height: var(--cap-height);
+    border-radius: 50%;
+    background: linear-gradient(180deg,
+            color-mix(in srgb, var(--disk-color) 100%, white 25%) 0%,
+            var(--disk-color) 70%);
+    pointer-events: none;
+}
+
+.disk-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--wall-height) - var(--bottom-height) / 2);
+    height: var(--bottom-height);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--disk-color) 100%, black 30%);
+    pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -29,20 +70,18 @@
 
 .disk.not-draggable {
     cursor: default;
-    opacity: 0.7;
 }
 
 @media (hover: hover) {
     .disk.draggable:hover {
         transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 }
 
 @media (max-width: 768px) {
     .disk {
-        height: 25px;
-        font-size: 12px;
-        margin: 1px auto;
+        --cap-height: 10px;
+        --wall-height: 16px;
+        --bottom-height: 7px;
     }
 }

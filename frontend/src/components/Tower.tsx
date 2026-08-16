@@ -70,7 +70,9 @@ export const Tower = ({
                         />
                     ))}
                 </div>
-                <div className="tower-base"></div>
+                <div className="tower-base">
+                    <span className="tower-base-face" />
+                </div>
             </div>
             <div className="tower-label">Tower {tower.id + 1}</div>
         </div>
