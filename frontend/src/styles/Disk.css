@@ -59,7 +59,7 @@
     top: var(--wall-height);
     height: var(--bottom-height);
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
-    background: color-mix(in srgb, var(--disk-color) 100%, black 30%);
+    background: color-mix(in srgb, var(--disk-color) 100%, black 15%);
     pointer-events: none;
 }
 
