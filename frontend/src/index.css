@@ -17,8 +17,8 @@ html {
   --text-primary: #1f2937;
   --text-secondary: #6b7280;
   --border-color: #d1d5db;
-  --tower-pole: linear-gradient(to bottom, #8b4513, #654321);
-  --tower-base: linear-gradient(to bottom, #654321, #4a3219);
+  --tower-pole: #a9764a;
+  --tower-base: #a9764a;
   --tower-hover: rgba(0, 0, 0, 0.03);
   --tower-selected: rgba(59, 130, 246, 0.1);
   --tower-selected-border: #3b82f6;
@@ -39,8 +39,8 @@ html {
     --text-primary: #f9fafb;
     --text-secondary: #9ca3af;
     --border-color: #374151;
-    --tower-pole: linear-gradient(to bottom, #a0522d, #8b4513);
-    --tower-base: linear-gradient(to bottom, #8b4513, #654321);
+    --tower-pole: #c2895a;
+    --tower-base: #c2895a;
     --tower-hover: rgba(255, 255, 255, 0.05);
     --tower-selected: rgba(59, 130, 246, 0.2);
     --tower-selected-border: #60a5fa;

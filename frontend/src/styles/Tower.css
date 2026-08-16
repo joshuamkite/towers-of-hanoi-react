@@ -71,7 +71,7 @@
        on every side, rather than matching it exactly. */
     width: 118%;
     height: 34px;
-    background: var(--tower-base);
+    background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
     box-shadow: var(--shadow-sm);
     /* Small positive gap (matching the discs' approach) so a rim of the plinth's own
        cap shows below the bottom disc, all the way around - not just at the sides. */
@@ -91,7 +91,9 @@
     aspect-ratio: 5 / 1;
     transform: translateY(-50%);
     border-radius: 50%;
-    background: var(--tower-base);
+    background: linear-gradient(180deg,
+            color-mix(in srgb, var(--tower-base) 100%, white 25%) 0%,
+            var(--tower-base) 70%);
     pointer-events: none;
 }
 
@@ -107,7 +109,7 @@
     top: 100%;
     aspect-ratio: 9 / 1;
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
-    background: var(--tower-base);
+    background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
 }
 
 @media (max-width: 768px) {
