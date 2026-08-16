@@ -99,6 +99,22 @@
     pointer-events: none;
 }
 
+/* The "bottom" - same half-dome construction as disk-bottom/tower-base's underside:
+   flat top edge flush with the pole's own bottom, curving only downward. Without
+   this the pole was just a flat-ended rectangle wherever it met a surface, instead
+   of blending into it the way one ring's bottom curve blends into the ring below -
+   same color as the pole's own edge, same as disk-bottom matching disk-wall. */
+.tower-pole-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    aspect-ratio: 9 / 1;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    background: color-mix(in srgb, var(--tower-pole) 100%, black 15%);
+    pointer-events: none;
+}
+
 .disk-stack {
     display: flex;
     flex-direction: column-reverse;
