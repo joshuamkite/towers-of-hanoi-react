@@ -12,11 +12,16 @@
    ~100% width no matter how many discs are in play) end up with a curve so short
    relative to their width that it reads as flat across the middle. */
 .disk {
-    --cap-height: 14px;
     --wall-height: 22px;
     position: relative;
     height: var(--wall-height);
-    margin-top: var(--cap-height);
+    /* This must stay smaller than half the cap-height of the narrowest disc that can
+       appear (30% width at the max disc count), or the gap opens wider than that
+       disc's own cap and shows through to whatever is behind it - a fixed value
+       tied to --cap-height broke this for narrow discs, since cap-height is now
+       aspect-ratio-driven (scales with each disc's own width) and no longer matches
+       a shared reference value. */
+    margin-top: 6px;
     cursor: pointer;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
@@ -90,7 +95,7 @@
 
 @media (max-width: 768px) {
     .disk {
-        --cap-height: 10px;
         --wall-height: 16px;
+        margin-top: 2px;
     }
 }
