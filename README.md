@@ -9,6 +9,7 @@ Implementation of the classic Towers of Hanoi puzzle game built with React, Type
 ![OpenTofu](https://img.shields.io/badge/OpenTofu-1.10+-FFDA18?style=flat&logo=opentofu&logoColor=000000)
 
 - [Towers of Hanoi - React + TypeScript + Bun](#towers-of-hanoi---react--typescript--bun)
+  - [Screenshots](#screenshots)
   - [About the Game](#about-the-game)
     - [Minimum Moves Formula](#minimum-moves-formula)
   - [Local Development](#local-development)
@@ -16,6 +17,11 @@ Implementation of the classic Towers of Hanoi puzzle game built with React, Type
   - [License](#license)
   - [AWS Deployment](#aws-deployment)
 
+## Screenshots
+
+| Dark Mode | Light Mode |
+| --- | --- |
+| ![Towers of Hanoi Dark Mode](screenshots/towers-of-hanoi-dark.jpg) | ![Towers of Hanoi Light Mode](screenshots/towers-of-hanoi-light.jpg) |
 
 ## About the Game
 
