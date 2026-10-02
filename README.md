@@ -2,11 +2,12 @@
 
 Implementation of the classic Towers of Hanoi puzzle game built with React, TypeScript, and Bun.
 
-![Towers of Hanoi Game](https://img.shields.io/badge/React-19.2.3-61DAFB?style=flat&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=flat&logo=typescript)
-![Bun](https://img.shields.io/badge/Bun-1.3.14-000000?style=flat&logo=bun)
-![Vite](https://img.shields.io/badge/Vite-7.3.0-646CFF?style=flat&logo=vite)
-![OpenTofu](https://img.shields.io/badge/OpenTofu-1.10+-FFDA18?style=flat&logo=opentofu&logoColor=000000)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-7-3178C6?style=flat&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat&logo=vite&logoColor=white)
+![Bun](https://img.shields.io/badge/Bun-1.4-000000?style=flat&logo=bun&logoColor=white)
+![Biome](https://img.shields.io/badge/Biome-2-60A5FA?style=flat&logo=biome&logoColor=white)
+![OpenTofu](https://img.shields.io/badge/OpenTofu-1.10+-FFDA18?style=flat&logo=opentofu&logoColor=black)
 
 - [Towers of Hanoi - React + TypeScript + Bun](#towers-of-hanoi---react--typescript--bun)
   - [Screenshots](#screenshots)
@@ -51,7 +52,9 @@ cd frontend
 bun run dev      # Start development server
 bun run build    # Build for production
 bun run preview  # Preview production build
-bun run lint     # Run ESLint
+bun run test     # Run tests (Vitest)
+bun run lint     # Lint with Biome
+bun run format   # Format with Biome
 ```
 
 ## License

@@ -1,28 +1,28 @@
 .tower-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .tower {
-    position: relative;
-    /* Fluid rather than a hard 250px/100px switch at the 768px breakpoint: 3 towers
+  position: relative;
+  /* Fluid rather than a hard 250px/100px switch at the 768px breakpoint: 3 towers
        at the full 250px width plus their gaps don't actually fit again until the
        viewport is quite a bit wider than 768px, so there was a dead zone just above
        that breakpoint where they wrapped to two rows despite not being "mobile". */
-    width: clamp(85px, 24vw, 250px);
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    cursor: pointer;
-    padding: 10px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    -webkit-user-select: none;
+  width: clamp(85px, 24vw, 250px);
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* The hover/selected/drag-over highlight, as a separate element rather than
@@ -33,44 +33,46 @@
    base's width instead. Painted first (no z-index of its own), so it sits behind
    the pole/discs/base like a backdrop rather than covering them. */
 .tower::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    /* .tower's own top/bottom edges aren't actually where the tower's visible
+  content: "";
+  position: absolute;
+  left: 50%;
+  /* .tower's own top/bottom edges aren't actually where the tower's visible
        content ends - the base's curved underside (tower-base::after) extends
        further down again below .tower's own bottom edge. Extended equally past
        .tower's own box on both sides, rather than only pushing the bottom out to
        clear the curve, so the highlight reads as evenly padded around the tower
        instead of tight against the top and loose at the bottom. */
-    top: -24px;
-    bottom: -34px;
-    width: 122%;
-    transform: translateX(-50%);
-    border-radius: 10px;
-    border: 2px solid transparent;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    pointer-events: none;
+  top: -24px;
+  bottom: -34px;
+  width: 122%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  pointer-events: none;
 }
 
 @media (hover: hover) {
-    .tower:hover::before {
-        background-color: var(--tower-hover);
-    }
+  .tower:hover::before {
+    background-color: var(--tower-hover);
+  }
 }
 
 .tower:active::before {
-    background-color: var(--tower-hover);
+  background-color: var(--tower-hover);
 }
 
 .tower.selected::before {
-    background-color: var(--tower-selected);
-    border-color: var(--tower-selected-border);
+  background-color: var(--tower-selected);
+  border-color: var(--tower-selected-border);
 }
 
 .tower.drag-over::before {
-    background-color: var(--tower-drag-over);
-    border-color: var(--tower-drag-over-border);
-    border-style: dashed;
+  background-color: var(--tower-drag-over);
+  border-color: var(--tower-drag-over-border);
+  border-style: dashed;
 }
 
 /* The pole is rendered as an extra .disk (see Tower.tsx: className="disk pole-ring",
@@ -98,10 +100,14 @@
    perching on the smaller amount of overlap that's enough for two similarly-wide
    rings. */
 .pole-ring {
-    --pole-margin: 2px;
-    width: 20px;
-    height: calc((var(--total-disks) + 2 - var(--real-disc-count)) * (var(--wall-height) + var(--disk-margin)) - var(--pole-margin));
-    margin-top: var(--pole-margin);
+  --pole-margin: 2px;
+  width: 20px;
+  height: calc(
+    (var(--total-disks) + 2 - var(--real-disc-count)) *
+    (var(--wall-height) + var(--disk-margin)) -
+    var(--pole-margin)
+  );
+  margin-top: var(--pole-margin);
 }
 
 /* disk-wall's height is normally var(--wall-height), matching a real disc's own
@@ -109,7 +115,7 @@
    that (above), so its wall needs to fill the whole thing instead, or most of the
    pole-ring's box is left transparent below the wall's normal 22px/16px. */
 .pole-ring .disk-wall {
-    height: 100%;
+  height: 100%;
 }
 
 /* disk-bottom's aspect-ratio (9/1) is tuned for a disc's own width, where even a
@@ -118,39 +124,39 @@
    cut instead of a curve. A shallower ratio number (taller relative to width)
    makes it an actual visible curve. */
 .pole-ring .disk-bottom {
-    aspect-ratio: 6 / 1;
+  aspect-ratio: 6 / 1;
 }
 
 @media (max-width: 768px) {
-    .pole-ring {
-        --pole-margin: 1px;
-        width: 14px;
-    }
+  .pole-ring {
+    --pole-margin: 1px;
+    width: 14px;
+  }
 }
 
 .disk-stack {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 280px;
-    width: 100%;
-    position: relative;
-    z-index: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 280px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .tower-base {
-    /* Fixed regardless of disc count - scaling this with the current disc-size step
+  /* Fixed regardless of disc count - scaling this with the current disc-size step
        made the base narrower at higher disc counts (each step shrinks as more discs
        are added), which read as backwards: a bigger stack getting a smaller base. */
-    position: relative;
-    width: 122%;
-    height: 34px;
-    background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
-    box-shadow: var(--shadow-sm);
-    /* Small positive gap (matching the discs' approach) so a rim of the plinth's own
+  position: relative;
+  width: 122%;
+  height: 34px;
+  background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
+  box-shadow: var(--shadow-sm);
+  /* Small positive gap (matching the discs' approach) so a rim of the plinth's own
        cap shows below the bottom disc, all the way around - not just at the sides. */
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 /* Top face of the plinth: a full ellipse, same aspect-ratio construction as the disc
@@ -159,17 +165,19 @@
    already full-width, so the slab's sharp top corners are never left poking out past
    the curve. */
 .tower-base-face {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    aspect-ratio: 5 / 1;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    background: linear-gradient(180deg,
-            color-mix(in srgb, var(--tower-base) 100%, white 25%) 0%,
-            var(--tower-base) 70%);
-    pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  aspect-ratio: 5 / 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--tower-base) 100%, white 25%) 0%,
+    var(--tower-base) 70%
+  );
+  pointer-events: none;
 }
 
 /* Bottom face - closes off the plinth so it reads as a solid drum, not a slab cut off
@@ -177,33 +185,33 @@
    downward) rather than a full ellipse, so its darker shade doesn't also paint an
    unwanted arch rising up into the slab. Same aspect-ratio as the disc bottoms. */
 .tower-base::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    aspect-ratio: 9 / 1;
-    border-radius: 0 0 50% 50% / 0 0 100% 100%;
-    background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  aspect-ratio: 9 / 1;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: color-mix(in srgb, var(--tower-base) 100%, black 15%);
 }
 
 @media (max-width: 768px) {
-    .tower {
-        height: 280px;
-        padding: 8px;
-    }
+  .tower {
+    height: 280px;
+    padding: 8px;
+  }
 
-    .tower::before {
-        top: -6px;
-        bottom: -9px;
-    }
+  .tower::before {
+    top: -6px;
+    bottom: -9px;
+  }
 
-    .disk-stack {
-        min-height: 220px;
-    }
+  .disk-stack {
+    min-height: 220px;
+  }
 
-    .tower-base {
-        height: 22px;
-        margin-top: 5px;
-    }
+  .tower-base {
+    height: 22px;
+    margin-top: 5px;
+  }
 }

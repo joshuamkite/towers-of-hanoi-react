@@ -1,16 +1,16 @@
 export interface Disk {
-    id: number;
-    size: number;
+  id: number
+  size: number
 }
 
 export interface Tower {
-    id: number;
-    disks: Disk[];
+  id: number
+  disks: Disk[]
 }
 
 export interface GameState {
-    towers: Tower[];
-    moves: number;
-    isComplete: boolean;
-    selectedTower: number | null;
+  towers: Tower[]
+  moves: number
+  isComplete: boolean
+  selectedTower: number | null
 }
