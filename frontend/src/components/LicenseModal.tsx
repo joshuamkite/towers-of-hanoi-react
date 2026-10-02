@@ -1,16 +1,16 @@
-import { licenseText } from '../licenseText';
-import '../styles/LicenseModal.css';
+import { licenseText } from '../licenseText'
+import '../styles/LicenseModal.css'
 
 interface LicenseModalProps {
-  onClose: () => void;
+  onClose: () => void
 }
 
 export const LicenseModal = ({ onClose }: LicenseModalProps) => {
   // Process license text: split into paragraphs, remove hard line breaks within paragraphs
   const processedText = licenseText
     .split('\n\n')
-    .map(para => para.replace(/\n/g, ' ').trim())
-    .filter(para => para.length > 0);
+    .map((para) => para.replace(/\n/g, ' ').trim())
+    .filter((para) => para.length > 0)
 
   return (
     <div className="license-container">
@@ -31,5 +31,5 @@ export const LicenseModal = ({ onClose }: LicenseModalProps) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
